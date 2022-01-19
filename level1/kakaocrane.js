@@ -16,7 +16,7 @@ function solution(board, moves) {
     if (moved[i] === moved[i + 1]) {
       answer += 2;
       moved.splice(i, 2);
-      i = 0;
+      i = -1;
     }
   }
 
