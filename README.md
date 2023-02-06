@@ -1,3 +1,3 @@
 # Programmers
-Programmers Code Test
-Baekjoon Code Test
+- Programmers Code Test
+- Baekjoon Code Test
