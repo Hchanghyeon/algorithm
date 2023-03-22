@@ -11,3 +11,4 @@ function solution(number) {
     
     return answer;
 }
+
