@@ -8,7 +8,7 @@ function solution(n) {
                 answer++; 
                 break;
             }
-            if(sum+j+1 > n){
+            if(sum+j > n){
                 break;
             }
         }
