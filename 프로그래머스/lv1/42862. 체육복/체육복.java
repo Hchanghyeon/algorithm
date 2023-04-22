@@ -24,8 +24,6 @@ class Solution {
             }
         }
         
-        System.out.println(Arrays.toString(lostList.stream().mapToInt(Integer::intValue).toArray()));
-        
         
         for(int num : lostList){
             if(reserveList.size() !=0 && reserveList.contains(num-1)){
