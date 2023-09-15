@@ -7,14 +7,16 @@ public class Main {
 
     private static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     private static boolean[] switchArr;
+    private static StringBuilder stringBuilder = new StringBuilder();
+
     public static void main(String[] args) throws IOException {
 
         int switchCount = Integer.parseInt(bufferedReader.readLine());
         String[] switchArrString = bufferedReader.readLine().split(" ");
-        switchArr = new boolean[switchCount + 1];
+        switchArr = new boolean[switchCount];
 
-        for(int i = 1; i <= switchCount; i++){
-            if(switchArrString[i-1].equals("1")){
+        for(int i = 0; i < switchArrString.length; i++){
+            if(switchArrString[i].equals("1")){
                 switchArr[i] = true;
             }
         }
@@ -28,41 +30,43 @@ public class Main {
 
             // 남학생일 경우
             if(studentGender == 1){
-                for(int j = studentNumber; j <= switchCount; j += studentNumber){
-                    switchArr[j] = !switchArr[j];
+                for(int j = studentNumber; j <= switchCount; j+=studentNumber){
+                    switchArr[j-1] = !switchArr[j-1];
                 }
             }
 
             // 여학생일 경우
             if(studentGender == 2){
-                switchArr[studentNumber] = !switchArr[studentNumber];
-                
+                switchArr[studentNumber - 1] = !switchArr[studentNumber - 1];
+                int min = 1;
+                int max = switchCount;
+
                 int before = studentNumber - 1;
                 int after = studentNumber + 1;
 
-                while (1 <= before && after <= switchCount){
-                    if(switchArr[before] != switchArr[after]){
+                while (min <= before && after <= max){
+                    if(switchArr[before-1] != switchArr[after-1]){
                         break;
                     }
 
-                    switchArr[before] = !switchArr[before];
-                    switchArr[after] = !switchArr[after];
+                    switchArr[before - 1] = !switchArr[before - 1];
+                    switchArr[after - 1] = !switchArr[after - 1];
 
                     before -= 1;
                     after += 1;
                 }
+
             }
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = 1; i <= switchCount; i++) {
+        for (int i = 0; i < switchCount; i++) {
             stringBuilder.append(switchArr[i] ? "1" : "0");
 
-            if (i % 20 == 0) {
+            if ((i + 1) % 20 == 0) {
                 stringBuilder.append("\n");
             } else {
-                stringBuilder.append(" ");
+                    stringBuilder.append(" ");
             }
         }
 
