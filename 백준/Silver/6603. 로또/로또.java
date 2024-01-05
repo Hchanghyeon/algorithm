@@ -29,7 +29,6 @@ public class Main{
                 numbers[i - 1] = Integer.parseInt(numberArr[i]);
             }
 
-            Arrays.sort(numbers);
             recursive(0);
             System.out.println();
         }
