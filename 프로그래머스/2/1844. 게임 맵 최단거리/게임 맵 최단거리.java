@@ -1,43 +1,44 @@
 import java.util.*;
 
 class Solution {
+    
+    private static int[] mx = {0, 0, -1, 1};
+    private static int[] my = {-1, 1, 0, 0};
+    private static boolean[][] visited;
+    private static int WIDTH = 5, HEIGHT = 5;
+    
     public int solution(int[][] maps) {
-        int[] dx = {0, 1, 0, -1};
-        int[] dy = {-1, 0, 1, 0};
+        visited = new boolean[maps.length][maps[0].length];
+        WIDTH = maps[0].length;
+        HEIGHT = maps.length;
         
-        int width = maps[0].length;
-        int height = maps.length;
-        boolean visited[][] = new boolean[height][width];
+        bfs(0, 0, maps);
         
-        Deque<int[]> deque = new ArrayDeque<>();
-        deque.add(new int[]{0, 0});
-        visited[0][0] = true;
-        
-        while(!deque.isEmpty()){
-            int[] next = deque.poll();
-            
-            for(int i = 0; i < 4; i++){
-                int mx = next[1] + dx[i];
-                int my = next[0] + dy[i];
-                
-                if(mx >= 0 && my >= 0 && mx < width && my < height && !visited[my][mx] && maps[my][mx] == 1){
-                    if(mx == width - 1 && my == height - 1){
-                        maps[my][mx] = maps[next[0]][next[1]] + 1;
-                        deque.clear();
-                        break;
-                    }
-                    
-                    visited[my][mx] = true;
-                    maps[my][mx] = maps[next[0]][next[1]] + 1;
-                    deque.add(new int[]{my, mx});
-                }
-            }
-        }
-        
-        if(maps[height-1][width-1] == 1){
+        if(maps[HEIGHT-1][WIDTH-1] == 1){
             return -1;
         }
         
-        return maps[height-1][width-1];
+        return maps[HEIGHT-1][WIDTH-1];
+    }
+    
+    private void bfs(int x, int y, int[][] maps){
+        Deque<int[]> deque = new ArrayDeque<>();
+        deque.add(new int[]{x, y});
+        visited[y][x] = true;
+        
+        while(!deque.isEmpty()){
+            int[] cur = deque.poll();
+            
+            for(int i = 0; i < 4; i++){
+                int dx = mx[i] + cur[0];
+                int dy = my[i] + cur[1];
+             
+                if(dx >= 0 && dy >= 0 && dx < WIDTH && dy < HEIGHT && maps[dy][dx] != 0 && !visited[dy][dx]){
+                    visited[dy][dx] = true;
+                    maps[dy][dx] = maps[cur[1]][cur[0]] + 1;
+                    deque.add(new int[]{dx,dy});
+                }
+            }
+        }
     }
 }
